@@ -1,0 +1,45 @@
+syntax = "proto3";
+
+package loadbalancer;
+
+// Messages
+message BackendInfo {
+  string id = 1;
+  string address = 2;
+  int32 port = 3;
+  float load = 4; // current load metric
+}
+
+message RegisterResponse {
+  bool success = 1;
+  string message = 2;
+}
+
+message LoadReport {
+  string id = 1;
+  float load = 2;
+}
+
+message ServerRequest {
+  string client_id = 1;
+  string service_name = 2; // extra field for LB context
+}
+
+message TaskRequest {
+  string payload = 1; // task-specific data
+}
+
+message TaskResponse {
+  string result = 1;
+}
+
+// Services
+service LoadBalancer {
+  rpc RegisterBackend(BackendInfo) returns (RegisterResponse);
+  rpc ReportLoad(LoadReport) returns (RegisterResponse);
+  rpc GetBackend(ServerRequest) returns (BackendInfo);
+}
+
+service Compute {
+  rpc ComputeTask(TaskRequest) returns (TaskResponse);
+}

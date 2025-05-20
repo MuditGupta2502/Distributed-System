@@ -1,0 +1,58 @@
+{
+  "clients": [
+    {
+      "client_id": "client1",
+      "username": "user1",
+      "password": "pass1",
+      "bank": "HDFC",
+      "role": "client",
+      "balance": 1000.0,
+      "account_number": "12345678901234"
+    },
+    {
+      "client_id": "client2",
+      "username": "user2",
+      "password": "pass2",
+      "bank": "ICICI",
+      "role": "client",
+      "balance": 1500.0,
+      "account_number": "23456789012345"
+    },
+    {
+      "client_id": "client3",
+      "username": "user3",
+      "password": "pass3",
+      "bank": "Axis",
+      "role": "client",
+      "balance": 800.0,
+      "account_number": "34567890123456"
+    },
+    {
+      "client_id": "client4",
+      "username": "user4",
+      "password": "pass4",
+      "bank": "Canara",
+      "role": "client",
+      "balance": 1200.0,
+      "account_number": "45678901234567"
+    },
+    {
+      "client_id": "client5",
+      "username": "user5",
+      "password": "pass5",
+      "bank": "Kotak",
+      "role": "client",
+      "balance": 500.0,
+      "account_number": "56789012345678"
+    },
+    {
+      "client_id": "client6",
+      "username": "user6",
+      "password": "pass6",
+      "bank": "BankOfIndia",
+      "role": "client",
+      "balance": 2000.0,
+      "account_number": "67890123456789"
+    }
+  ]
+}

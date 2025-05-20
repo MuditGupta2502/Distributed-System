@@ -1,0 +1,44 @@
+syntax = "proto3";
+
+package byzantine;
+
+message GeneralSpec {
+  int32 id = 1;
+  bool is_traitor = 2;
+}
+
+message AlgorithmRequest {
+  int32 t = 1;
+  string order = 2;
+  repeated GeneralSpec generals = 3; // Not used in distributed version.
+}
+
+message Vote {
+  string order = 1;
+  int32 count = 2;
+}
+
+message Decision {
+  int32 general_id = 1;
+  repeated Vote votes = 2;
+}
+
+message AlgorithmResponse {
+  repeated Decision decisions = 1;
+}
+
+message OrderMessage {
+  int32 commander_id = 1;
+  int32 sender_id = 2;
+  int32 recursion_level = 3;
+  string order = 4;
+}
+
+message Empty {}
+
+service ByzantineService {
+  rpc RunAlgorithm(AlgorithmRequest) returns (AlgorithmResponse);
+  rpc SendOrder(OrderMessage) returns (Empty);
+  rpc GetDecision(Empty) returns (Decision);
+  rpc ResetLog(Empty) returns (Empty);
+}

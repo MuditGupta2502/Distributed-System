@@ -1,0 +1,72 @@
+syntax = "proto3";
+
+package stripe;
+
+service PaymentGateway {
+  rpc RegisterClient(ClientInfo) returns (RegisterResponse) {}
+  rpc ProcessPayment(PaymentRequest) returns (PaymentResponse) {}
+  rpc ViewBalance(BalanceRequest) returns (BalanceResponse) {}
+}
+
+service BankService {
+  rpc PrepareTransaction(TransactionRequest) returns (TransactionResponse) {}
+  rpc CommitTransaction(TransactionRequest) returns (TransactionResponse) {}
+  rpc AbortTransaction(TransactionRequest) returns (TransactionResponse) {}
+  rpc Ping(Empty) returns (PingResponse) {}
+  rpc GetBalance(BalanceRequest) returns (BalanceResponse) {}
+}
+
+message Empty {}
+
+message PingResponse {
+  string message = 1;
+}
+
+message PaymentRequest {
+  string transaction_id = 1;
+  string client_id = 2;                // Sender's client ID
+  string from_bank = 3;                // Sender's bank name
+  string recipient_account_number = 4; // Recipient's 14-digit account number
+  double amount = 5;
+  string auth_token = 6;
+}
+
+message PaymentResponse {
+  bool success = 1;
+  string message = 2;
+}
+
+message ClientInfo {
+  string client_id = 1;
+  string username = 2;
+  string password = 3;
+  string bank = 4;
+}
+
+message RegisterResponse {
+  bool success = 1;
+  string message = 2;
+}
+
+message TransactionRequest {
+  string transaction_id = 1;
+  double amount = 2;
+  string account_id = 3;  // For debit: sender's client_id; for credit: recipient's client_id.
+  bool is_debit = 4;      // true for debit, false for credit.
+}
+
+message TransactionResponse {
+  bool ready = 1;
+  string message = 2;
+}
+
+message BalanceRequest {
+  string client_id = 1;
+  string auth_token = 2;
+}
+
+message BalanceResponse {
+  bool success = 1;
+  string message = 2;
+  double balance = 3;
+}

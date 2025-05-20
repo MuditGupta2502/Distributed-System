@@ -1,0 +1,22 @@
+syntax = "proto3";
+
+service MapWorker {
+  rpc PerformMap(MapReq) returns (MapResp) {}
+}
+
+message MapReq {
+  int32 task_type = 1;           // 1 for Word Count, 2 for Inverted Index
+  string data_dir = 2;           // Directory holding the input files
+  repeated string file_names = 3;  // List of file names assigned for mapping
+  repeated int32 file_ids = 4;     // Corresponding file IDs (for inverted index)
+  int32 reduce_count = 5;        // Total number of reducer tasks
+}
+
+message MapResp {
+  enum ResultStatus {
+    ERROR = 0;
+    OK = 1;
+  }
+  string temp_dir = 1;           // Directory storing intermediate results
+  ResultStatus status = 2;
+}

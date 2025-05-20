@@ -1,0 +1,20 @@
+syntax = "proto3";
+
+service ReduceWorker {
+  rpc PerformReduce(ReduceReq) returns (ReduceResp) {}
+}
+
+message ReduceReq {
+  int32 task_type = 1;         // 1 for Word Count, 2 for Inverted Index
+  repeated string part_files = 2;  // List of partition file paths from mappers
+  string output_dir = 3;       // Directory for final output files
+}
+
+message ReduceResp {
+  enum ResultStatus {
+    ERROR = 0;
+    OK = 1;
+  }
+  ResultStatus status = 1;
+  string final_output = 2;     // Path to the final output file
+}
